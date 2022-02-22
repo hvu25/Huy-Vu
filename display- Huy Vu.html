@@ -1,0 +1,38 @@
+<html>
+   <head>
+           <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.12.313/build/pdf.min.js"></script>      
+           <link rel ="stylesheet" href = "style.css">
+    </head>
+    <body>
+        
+        <object data="sample.pdf" type="application/pdf" width="600" height="600">
+        </object>
+        <canvas id="canvas" width="600" height="600"style="border:1px solid #a83434;position: absolute; left: 0;right: 0;"></canvas>
+            <script>
+                var a = document.getElementById("canvas");
+                var abc = a.getContext("2d");
+                let coord = {x: 0, y: 0};
+                document.addEventListener('mousedown', begin);
+                document.addEventListener('mouseup', end);
+                function begin(event){
+                    document.addEventListener('mousemove', paint);
+                    coord.x = event.clientX - canvas.offsetLeft;
+                    coord.y = event.clientY - canvas.offsetTop;
+                }
+                function end(){
+                    document.removeEventListener('mousemove', paint);
+                }
+                function paint(event){            
+                abc.beginPath();
+                abc.stroke();
+                abc.strokeStyle = '#FF0000';
+                abc.moveTo(coord.x, coord.y);
+                coord.x = event.clientX - canvas.offsetLeft;
+                coord.y = event.clientY - canvas.offsetTop;
+                abc.lineTo(coord.x, coord.y);
+                abc.stroke();
+                }
+            </script>
+        
+    </body>
+</html>
